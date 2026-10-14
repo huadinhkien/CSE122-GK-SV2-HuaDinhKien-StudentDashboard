@@ -41,4 +41,4 @@ _(điền sau)_
 
 ## Link GitHub
 
-_(điền sau)_
+https://github.com/huadinhkien/CSE122-GK-SV2-HuaDinhKien-StudentDashboard
