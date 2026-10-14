@@ -37,7 +37,7 @@ https://www.figma.com/design/UlVlylPnLVm19UE9ICufOq/Dashboard?node-id=0-1
 
 ## Link video
 
-_(điền sau)_
+https://youtu.be/PcRL0b4Rddg
 
 ## Link GitHub
 
