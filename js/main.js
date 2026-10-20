@@ -255,39 +255,6 @@ function renderSkeleton() {
   `;
 }
 
-function renderEmpty() {
-  root.innerHTML = `
-    <div class="state-box">
-      <p class="state-icon">📋</p>
-      <h3>Chưa có dữ liệu học tập</h3>
-      <p>Bạn chưa lập kế hoạch nào cho học kỳ này.</p>
-      <button type="button" class="btn btn-primary" data-action="new-plan">+ Lập kế hoạch học kỳ đầu tiên</button>
-    </div>
-  `;
-}
-
-function renderError() {
-  root.innerHTML = `
-    <div class="state-box">
-      <p class="state-icon">⚠️</p>
-      <h3>Không tải được tiến độ học tập</h3>
-      <p>Kiểm tra kết nối mạng rồi thử lại.</p>
-      <button type="button" class="btn btn-primary" data-action="retry">Thử lại</button>
-    </div>
-  `;
-}
-
-function switchView(state) {
-  if (state === "loading") renderSkeleton();
-  else if (state === "empty") renderEmpty();
-  else if (state === "error") renderError();
-  else renderNormal();
-
-  document.querySelectorAll(".state-switch button").forEach((btn) => {
-    btn.classList.toggle("active", btn.dataset.state === state);
-  });
-}
-
 /* ---------- 5. TƯƠNG TÁC ---------- */
 
 let toastTimer = null;
@@ -344,9 +311,7 @@ function handleContentClick(e) {
 
   const action = actionBtn.dataset.action;
   if (action === "read-all") markAllRead();
-  else if (action === "retry") { renderSkeleton(); setTimeout(() => switchView("normal"), 700); }
   else if (action === "view-plan") showToast("Giả lập: mở chi tiết kế hoạch HK1 2026–2027");
-  else if (action === "new-plan") showToast("Giả lập: mở form lập kế hoạch mới");
 }
 
 /* Bàn phím cho các hàng todo/notif (accessibility cơ bản) */
@@ -359,11 +324,6 @@ function handleContentKeydown(e) {
 }
 
 function bindShellEvents() {
-  document.querySelector(".state-switch").addEventListener("click", (e) => {
-    const btn = e.target.closest("button[data-state]");
-    if (btn) switchView(btn.dataset.state);
-  });
-
   document.getElementById("btn-new-plan").addEventListener("click", () => {
     showToast("Giả lập: mở form lập kế hoạch học kỳ");
   });
@@ -395,4 +355,4 @@ root.addEventListener("keydown", handleContentKeydown);
 
 /* Hiệu ứng tải trang lần đầu: skeleton -> dữ liệu thật */
 renderSkeleton();
-setTimeout(() => switchView("normal"), 800);
+setTimeout(renderNormal, 800);
